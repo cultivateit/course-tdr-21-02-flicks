@@ -1,0 +1,28 @@
+{
+  "name": "flicks-tools",
+  "version": "0.0.0",
+  "description": "Flicks Tools",
+  "keywords": [ ],
+  "private": true,
+  "author": "cultivate GmbH",
+  "license": "UNLICENSED",
+  "scripts": {
+    "uninstall": "rm package-lock.json; rm -rf ./node_modules",
+    "reinstall": "npm run uninstall; npm install",
+    "build:configure": "env-cmd -f ../.env babel-node replaceBuildConfig.js",
+    "build:configure:ci": "babel-node replaceBuildConfig.js"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "dependencies": { },
+  "devDependencies": {
+    "@babel/core": "7.12.17",
+    "@babel/node": "7.12.17",
+    "@babel/preset-env": "7.12.17",
+    "env-cmd": "10.1.0",
+    "moment": "2.29.1"
+  }
+}

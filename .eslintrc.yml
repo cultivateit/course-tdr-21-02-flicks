@@ -1,0 +1,141 @@
+env:
+  node: true
+  browser: true
+  es2020: true
+  jest: true
+  cypress/globals: true
+extends:
+  - react-app
+  - eslint:recommended
+  - plugin:react/recommended
+  - plugin:testing-library/recommended
+  - plugin:testing-library/react
+  - plugin:jest-dom/recommended
+  - plugin:cypress/recommended
+  - plugin:import/react
+  - plugin:import/errors
+  - plugin:import/warnings
+plugins:
+  - deprecate
+  - react
+  - jest
+  - testing-library
+  - jest-dom
+  - cypress
+settings:
+  import/resolver:
+    node:
+      extensions: [ '.js', '.jsx', '.ts', '.tsx', '.mjs', '.json' ]
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+
+rules:
+
+  # whitespace
+  indent: [ error, 2 ]
+  no-multi-spaces: error
+  no-multiple-empty-lines: [ error, { max: 1, maxEOF: 1, maxBOF: 0 } ]
+  no-trailing-spaces: error
+  space-in-parens: error
+  array-bracket-spacing: [ error, always ]
+  object-curly-spacing: [ error, always ]
+  block-spacing: error
+  comma-spacing: [ error, { before: false, after: true } ]
+  key-spacing: error
+  keyword-spacing: error
+  space-before-blocks: [ error, always ]
+  space-infix-ops: error
+  spaced-comment: [ error, always, { exceptions: [ '*', '-', '=' ], "markers": [ '/' ] } ]
+  no-spaced-func: error
+  space-before-function-paren: [ error, { named: never, anonymous: always, asyncArrow: always } ]
+  arrow-spacing: [ error, { before: true, after: true } ]
+  react/jsx-tag-spacing: error
+  react/jsx-curly-spacing: [ error, { when: never, children: true } ]
+
+  # punctuation
+  semi: [ error, never ]
+  quotes: [ error, single ]
+  comma-dangle: [ error, always-multiline ]
+  no-template-curly-in-string: error
+  no-extra-parens: error
+  jsx-quotes: [ error, prefer-single ]
+
+  # possible errors
+  require-atomic-updates: error
+
+  # best practices
+  no-console: [ error, { allow: [ warn, error ] } ]
+  no-warning-comments: error
+  array-callback-return: error
+  no-return-await: error
+  require-await: error
+  no-self-compare: error
+  no-sequences: error
+  no-throw-literal: error
+  prefer-promise-reject-errors: error
+  prefer-regex-literals: error
+  camelcase: error
+  func-style: error
+  no-bitwise: error
+  no-multi-assign: error
+  no-negated-condition: error
+  no-duplicate-imports: error
+  prefer-rest-params: error
+  prefer-spread: error
+  no-unused-vars: [ error, { varsIgnorePattern: _ } ]
+  jest/no-disabled-tests: error
+  jest/no-focused-tests: error
+  react/react-in-jsx-scope: off
+
+  # complexity
+  max-len: [ error, { code: 120, tabWidth: 2 } ]
+  max-lines: [ error, 100 ]
+  max-statements: [ error, 7 ]
+  max-statements-per-line: [ error, { max: 3 } ]
+  max-params: [ error, 4 ]
+  max-nested-callbacks: [ error, 4 ]
+  max-depth: [ error, 2 ]
+  complexity: [ error, 5 ]
+
+  # deprecation
+  # deprecate/function: [ error, <fn>, <fn> ]
+  # deprecate/member-expression: [ error, <Class.member>, <Class.member> ]
+  # deprecate/import: [ error, { nameRegExp: <module-part> }, <module-path> ]
+
+overrides:
+  - files: [ '*.test.js' ]
+    rules:
+      max-lines: [ error, 200 ] # regular value * 2 (test)
+      max-statements: [ error, 10 ]
+  - files: [ 'src/domain/**/*.js' ]
+    rules:
+      no-restricted-imports: [ error, { patterns: [ 'react', 'redux', 'services' ] } ]
+  - files: [ 'src/react/**/*.js' ]
+    rules:
+      complexity: [ error, 10 ]
+      no-extra-parens: off
+      no-restricted-imports: [ error, { patterns: [ 'services', '*/redux/*', '!thunks' ] } ]
+  - files: [ 'src/react/**/*.test.js' ]
+    rules:
+      max-lines: [ error, 300 ] # regular value * 2 (test) * 1.5 (jsx)
+      no-extra-parens: off
+  - files: [ 'src/redux/**/*.js' ]
+    rules:
+      no-restricted-imports: [ error, { patterns: [ 'react', '!connected-react-router' ] } ]
+  - files: [ 'src/services/**/*.js' ]
+    rules:
+      no-restricted-imports: [ error, { patterns: [ 'react', 'redux' ] } ]
+  - files: [ 'src/react/**/*.stories.js', 'src/test/utils/storybook.js', 'src/test/utils/rtl.js' ]
+    rules:
+      react/prop-types: off
+      no-extra-parens: off
+      import/no-anonymous-default-export: off
+      react/display-name: off
+  - files: [ 'test/cypress/acceptance/**/*.at.js', 'test/cypress/support/commands.js' ]
+    rules:
+      max-lines: [ error, 200 ] # regular value * 2 (test)
+      max-statements: [ error, 25 ]
+  - files: [ 'src/domain/intl/messages/*.js' ]
+    rules:
+      max-lines: off

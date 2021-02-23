@@ -1,0 +1,148 @@
+{
+  "name": "flicks-web-app",
+  "description": "Flicks React Frontend",
+  "version": "0.0.0",
+  "keywords": [ ],
+  "private": true,
+  "author": "cultivate GmbH",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cultivateit/course-tdr-21-02-flicks.git"
+  },
+  "scripts": {
+    "postinstall": "npm run backend:install && npm run tools:install",
+    "uninstall": "rm package-lock.json; rm -rf ./node_modules; npm run backend:uninstall; npm run tools:uninstall",
+    "reinstall": "npm run uninstall && npm install && npm run backend:install && npm run tools:install",
+    "tools:install": "npm install --prefix tools",
+    "tools:uninstall": "npm run uninstall --prefix tools",
+    "tools:reinstall": "npm run reinstall --prefix tools",
+    "backend:install": "npm install --prefix backend",
+    "backend:uninstall": "npm run uninstall --prefix backend",
+    "backend:reinstall": "npm run reinstall --prefix backend",
+    "backend:start": "npm start --prefix backend",
+    "start": "react-scripts start",
+    "storybook": "start-storybook -p 6006 -s public",
+    "storybook:build": "build-storybook -s public",
+    "lint:basic": "EXTEND_ESLINT=true eslint --ext=js,jsx,mjs --max-warnings=0",
+    "lint:ci": "npm run lint:basic -- .",
+    "lint": "npm run lint:basic -- --cache --format pretty . || true",
+    "lint:filter": "npm run lint:basic -- --cache --format pretty",
+    "lint:fix": "npm run lint:basic -- --cache --format pretty --fix . || true",
+    "test": "react-scripts test --watchAll=false || true",
+    "test:filter": "react-scripts test --watchAll=false",
+    "test:watch": "react-scripts test",
+    "test:ci": "CI=true react-scripts test",
+    "cover": "react-scripts test --coverage --watchAll=false || true",
+    "cover:filter": "react-scripts test --coverage --watchAll=false",
+    "cover:watch": "react-scripts test --coverage",
+    "cover:ci": "CI=true react-scripts test --coverage --ci --maxWorkers=2",
+    "cover:open": "npm run cover; npm run cover:open:current",
+    "cover:open:current": "open-cli ./coverage/lcov-report/index.html",
+    "test:at:cypress:open": "cypress open",
+    "test:at:cypress:run": "cypress run",
+    "test:at:cypress:info": "cypress info",
+    "test:at": "npm run test:at:cypress:open",
+    "test:at:ci": "npm run test:at:cypress:info; npm run test:at:cypress:run -- --config baseUrl=http://localhost:4000",
+    "test:all": "npm run lint:ci && npm run cover:ci && npm run build && npm run test:at:ci",
+    "bundle:analyze": "source-map-explorer 'build/static/js/*.js'",
+    "bundle:list:browsers": "npx browserslist",
+    "build": "react-scripts build",
+    "build:ci": "GENERATE_SOURCEMAP=false npm run build",
+    "build:configure": "npm run build:configure --prefix tools",
+    "build:configure:ci": "npm run build:configure:ci --prefix tools",
+    "build:start": "serve -s build -l 4000",
+    "build:analyze": "npm run build; npm run bundle:analyze",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "1.2.34",
+    "@fortawesome/free-solid-svg-icons": "5.15.2",
+    "@fortawesome/react-fontawesome": "0.1.14",
+    "bootstrap": "4.6.0",
+    "connected-react-router": "6.8.0",
+    "flat": "5.0.2",
+    "history": "4.10.1",
+    "joi": "17.4.0",
+    "prop-types": "15.7.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-intl": "5.12.3",
+    "react-redux": "7.2.2",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "4.0.2",
+    "redux": "4.0.5",
+    "redux-thunk": "2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.12.17",
+    "@sheerun/mutationobserver-shim": "0.3.3",
+    "@storybook/addon-a11y": "6.1.18",
+    "@storybook/addon-actions": "6.1.18",
+    "@storybook/addon-console": "1.2.3",
+    "@storybook/addon-essentials": "6.1.18",
+    "@storybook/addon-links": "6.1.18",
+    "@storybook/addon-storysource": "6.1.18",
+    "@storybook/node-logger": "6.1.18",
+    "@storybook/preset-create-react-app": "3.1.6",
+    "@storybook/react": "6.1.18",
+    "@testing-library/cypress": "7.0.3",
+    "@testing-library/jest-dom": "5.11.9",
+    "@testing-library/react": "11.2.5",
+    "@testing-library/user-event": "12.7.1",
+    "babel-loader": "8.1.0",
+    "cypress": "6.5.0",
+    "eslint-formatter-pretty": "4.0.0",
+    "eslint-plugin-cypress": "2.11.2",
+    "eslint-plugin-deprecate": "0.7.0",
+    "eslint-plugin-jest": "24.1.5",
+    "eslint-plugin-jest-dom": "3.6.5",
+    "eslint-plugin-testing-library": "3.10.1",
+    "jest-fetch-mock": "3.0.3",
+    "open-cli": "6.0.1",
+    "react-test-renderer": "17.0.1",
+    "redux-immutable-state-invariant": "2.1.0",
+    "redux-mock-store": "1.5.4",
+    "serve": "11.3.2",
+    "source-map-explorer": "2.5.2",
+    "uuid": "8.3.2"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "coveragePathIgnorePatterns": [
+      ".*\\.stories\\.js",
+      "<rootDir>/src/services/intl/messages/.+_.+.js",
+      "<rootDir>/src/utils/deprecation.js",
+      "<rootDir>/src/test/utils/.*\\.js",
+      "<rootDir>/src/redux/store/configureStore.js",
+      "<rootDir>/src/index.js",
+      "<rootDir>/src/serviceWorker.js"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

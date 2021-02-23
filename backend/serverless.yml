@@ -1,0 +1,71 @@
+service: flicks-backend
+
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle
+  - serverless-offline
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  bundle:
+    linting: false
+
+provider:
+  name: aws
+  region: eu-west-1
+  stage: lcl
+  runtime: nodejs12.x
+  memorySize: 128
+  timeout: 5
+
+functions:
+
+  getMovies:
+    handler: src/lambda/movies.getMovies
+    events:
+      - http:
+          path: movies
+          method: get
+          cors: true
+
+  deleteMovies:
+    handler: src/lambda/movies.deleteMovies
+    events:
+      - http:
+          path: movies
+          method: delete
+          cors: true
+
+  postMovie:
+    handler: src/lambda/movies.postMovie
+    events:
+      - http:
+          path: movies
+          method: post
+          cors: true
+
+  getMovie:
+    handler: src/lambda/movies.getMovie
+    events:
+      - http:
+          path: movies/{movieId}
+          method: get
+          cors: true
+
+  putMovie:
+    handler: src/lambda/movies.putMovie
+    events:
+      - http:
+          path: movies/{movieId}
+          method: put
+          cors: true
+
+  deleteMovie:
+    handler: src/lambda/movies.deleteMovie
+    events:
+      - http:
+          path: movies/{movieId}
+          method: delete
+          cors: true

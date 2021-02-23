@@ -1,0 +1,27 @@
+{
+  "name": "flicks-backend",
+  "version": "0.0.0",
+  "description": "Flicks Backend",
+  "keywords": [ ],
+  "private": true,
+  "author": "cultivate GmbH",
+  "license": "UNLICENSED",
+  "scripts": {
+    "uninstall": "rm package-lock.json; rm -rf ./node_modules",
+    "reinstall": "npm run uninstall; npm install",
+    "start": "serverless offline start --httpPort 5000"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "dependencies": {
+    "joi": "17.4.0",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "serverless": "2.25.2",
+    "serverless-bundle": "4.2.1",
+    "serverless-offline": "6.8.0"
+  }
+}
