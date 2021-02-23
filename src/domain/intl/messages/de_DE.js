@@ -28,4 +28,7 @@ export const messages = {
   nav: {
     title: 'Flicks',
   },
+  movies: {
+    title: 'Filme',
+  },
 }
