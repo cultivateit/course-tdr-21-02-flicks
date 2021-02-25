@@ -21,7 +21,7 @@
     "backend:uninstall": "npm run uninstall --prefix backend",
     "backend:reinstall": "npm run reinstall --prefix backend",
     "backend:start": "npm start --prefix backend",
-    "start": "react-scripts start",
+    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
     "storybook": "start-storybook -p 6006 -s public",
     "storybook:build": "build-storybook -s public",
     "lint:basic": "EXTEND_ESLINT=true eslint --ext=js,jsx,mjs --max-warnings=0",
