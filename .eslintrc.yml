@@ -59,6 +59,7 @@ rules:
   comma-dangle: [ error, always-multiline ]
   no-template-curly-in-string: error
   no-extra-parens: error
+  arrow-parens: [ error, as-needed ]
   jsx-quotes: [ error, prefer-single ]
 
   # possible errors
