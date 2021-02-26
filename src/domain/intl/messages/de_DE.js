@@ -29,6 +29,16 @@ export const messages = {
     title: 'Flicks',
   },
   movies: {
-    title: 'Filme',
+    list: {
+      title: 'Filme',
+      new: 'neuen Film anlegen',
+    },
+    new: {
+      title: 'Neuen Film anlegen',
+      save: 'Film anlegen',
+      placeholders: {
+        title: 'Titel',
+      },
+    },
   },
 }

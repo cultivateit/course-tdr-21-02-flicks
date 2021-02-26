@@ -29,6 +29,16 @@ export const messages = {
     title: 'Flicks',
   },
   movies: {
-    title: 'Movies',
+    list: {
+      title: 'Movies',
+      new: 'new Movie',
+    },
+    new: {
+      title: 'New Movie',
+      save: 'save Movie',
+      placeholders: {
+        title: 'Title',
+      },
+    },
   },
 }
