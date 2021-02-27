@@ -1,6 +1,5 @@
 import { configureStore } from '../../../test/utils/redux'
-import { initFailure } from '../../actions/init'
-import { onInit } from '../../thunks/init'
+import { onInit, onInitFailure } from '../../actions/init'
 
 let store
 
@@ -18,7 +17,7 @@ describe('onInit', () => {
 
   it('is initialized on failure', async () => {
     expect(store.getState().initStatus.isInitialized).toBe(false)
-    await store.dispatch(initFailure(new Error()))
+    await store.dispatch(onInitFailure(new Error()))
     expect(store.getState().initStatus.isInitialized).toBe(true)
   })
 })

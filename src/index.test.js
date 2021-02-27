@@ -1,8 +1,7 @@
+import { onInit } from './redux/actions/init'
 import configureStore from './redux/store/configureStore'
-import { onInit } from './redux/thunks/init'
 
 jest.mock('react-dom', () => ({ render: jest.fn() }))
-jest.mock('./redux/thunks/init')
 jest.mock('./redux/store/configureStore')
 
 let dispatch
@@ -16,7 +15,7 @@ beforeEach(() => {
 describe('index', () => {
   it('renders without crashing', () => {
     jest.isolateModules(() => require('./index'))
-    expect(onInit).toHaveBeenCalled()
+    expect(dispatch).toHaveBeenCalledWith(onInit())
     expect(dispatch).toHaveBeenCalledTimes(1)
   })
 })

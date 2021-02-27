@@ -1,8 +1,6 @@
-import { onInit } from '../redux/thunks/init'
-import { initialState, render, screen, withIntl, withState } from '../test/utils/rtl'
+import { onInit } from '../redux/actions/init'
+import { configureMockStore, initialState, render, screen, withIntl, withState, withStore } from '../test/utils/rtl'
 import { useInitialization } from './useInitialization'
-
-jest.mock('../redux/thunks/init')
 
 const uninitializedState = { ...initialState, initStatus: { isInitialized: false } }
 const initializedState = { ...initialState, initStatus: { isInitialized: true } }
@@ -36,18 +34,21 @@ describe('useInitialization', () => {
   })
 
   it('signals init', () => {
-    render(<NeedsInitialization />, withIntl(), withState(uninitializedState))
-    expect(onInit).toHaveBeenCalled()
+    const store = configureMockStore(uninitializedState)
+    render(<NeedsInitialization />, withIntl(), withStore(store))
+    expect(store.getActions()).toContainEqual(onInit())
   })
 
   it('signals init only when not loaded already', () => {
-    render(<NeedsInitialization />, withIntl(), withState(initializedState))
-    expect(onInit).not.toHaveBeenCalled()
+    const store = configureMockStore(initializedState)
+    render(<NeedsInitialization />, withIntl(), withStore(store))
+    expect(store.getActions()).not.toContainEqual(onInit())
   })
 
   it('signals init only once', () => {
-    const { rerender } = render(<NeedsInitialization />, withIntl(), withState(uninitializedState))
+    const store = configureMockStore(uninitializedState)
+    const { rerender } = render(<NeedsInitialization />, withIntl(), withStore(store))
     rerender(<NeedsInitialization />)
-    expect(onInit).toHaveBeenCalledTimes(1)
+    expect(store.getActions()).toHaveLength(1)
   })
 })

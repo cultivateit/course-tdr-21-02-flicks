@@ -1,5 +1,5 @@
 import { ERROR } from '../../domain/routes'
-import { onPush } from '../thunks/routing'
+import { onPush } from '../actions/routing'
 
 export const failuresListener = store => next => action => {
   if (action.type && action.type.endsWith('_FAILURE')) {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { onInit } from '../redux/thunks/init'
+import { onInit } from '../redux/actions/init'
 import Spinner from './common/display/Spinner'
 
 export const useInitialization = () => {

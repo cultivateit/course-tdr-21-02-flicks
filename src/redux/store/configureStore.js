@@ -2,11 +2,13 @@ import { routerMiddleware } from 'connected-react-router'
 import { applyMiddleware, compose, createStore } from 'redux'
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
 import thunk from 'redux-thunk'
+import { actionToThunk } from '../middlewares/actionToThunk'
 import { failuresListener } from '../middlewares/failures'
 import createRootReducer from '../reducers'
 
 const createMiddlewares = history => [
   routerMiddleware(history),
+  actionToThunk,
   thunk,
   failuresListener,
 ]

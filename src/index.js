@@ -4,9 +4,9 @@ import { StrictMode } from 'react'
 import { render } from 'react-dom'
 import './config'
 import Root from './react/Root'
+import { onInit } from './redux/actions/init'
 import { initialState } from './redux/reducers/initialState'
 import configureStore from './redux/store/configureStore'
-import { onInit } from './redux/thunks/init'
 
 export const history = createBrowserHistory()
 

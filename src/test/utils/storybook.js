@@ -1,7 +1,7 @@
 import { action as logAction } from '@storybook/addon-actions'
 import { IntlProvider } from 'react-intl'
 import { Provider as StoreProvider } from 'react-redux'
-import { MemoryRouter as RouterProvider } from 'react-router-dom'
+import { MemoryRouter as RouterProvider, Route } from 'react-router-dom'
 import configureStoreMock from 'redux-mock-store'
 import { getMessages } from '../../domain/intl'
 import { enUS } from '../../domain/intl/locales'
@@ -45,3 +45,4 @@ export const withLocation = (location = '/') => (Story, context) => (
     <Story {...context} />
   </RouterProvider>
 )
+export const withRoute = path => (Story, context) => <Route path={path}><Story {...context} /></Route>
