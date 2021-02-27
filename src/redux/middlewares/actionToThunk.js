@@ -1,6 +1,6 @@
 import { THUNKS } from '../thunks'
 
-export const actionToThunk = () => next => async action => {
+export const actionToThunk = () => next => action => {
   const { type, ...payload } = action
   const thunk = THUNKS[type]
   if (!thunk) return next(action)
