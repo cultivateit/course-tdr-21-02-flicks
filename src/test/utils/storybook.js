@@ -5,6 +5,7 @@ import { MemoryRouter as RouterProvider, Route } from 'react-router-dom'
 import configureStoreMock from 'redux-mock-store'
 import { getMessages } from '../../domain/intl'
 import { enUS } from '../../domain/intl/locales'
+import { initialState as initialStoreState } from '../../redux/reducers/initialState'
 
 // classname
 
@@ -26,6 +27,7 @@ export const withIntl = () => (Story, context) => (
 
 // redux
 
+export const initialState = initialStoreState
 export const withState = (state = {}) => (Story, context) => {
   const actionsMiddleware = () => () => action => typeof action === 'function'
     ? logAction('redux thunk')(action.name)
@@ -40,6 +42,7 @@ export const withState = (state = {}) => (Story, context) => {
 }
 
 // router
+
 export const withLocation = (location = '/') => (Story, context) => (
   <RouterProvider initialEntries={[ location ]} initialIndex={0}>
     <Story {...context} />
