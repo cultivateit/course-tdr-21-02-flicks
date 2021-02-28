@@ -36,5 +36,12 @@ declare namespace Cypress {
      * cy.finally('I delete the user again')
      */
     Finally(title: string): Chainable<any>
+
+    /**
+     * Creates a movie with the given title and stays on page with movie list
+     * @example
+     * cy.createMovie('Movie Title')
+     */
+    createMovie(title: string): Chainable<any>
   }
 }

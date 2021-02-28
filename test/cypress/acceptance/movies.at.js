@@ -36,5 +36,20 @@ describe('Feature: Movies', () => {
     })
   })
 
+  it.skip('Scenario: A movie should be still there on next visit', () => {
+    cy.Given('I see a movie in the list of movies')
+    const title = `Movie AT ${uuid()}`
+    cy.createMovie(title)
+
+    cy.When('I reload the page')
+    cy.reload()
+
+    cy.Then('I still see the movie in the list of movies')
+    cy.findByRole('listitem', { name: title }).should('exist')
+    cy.findByRole('list', { name: /movies/i }).within(() => {
+      cy.findByRole('listitem', { name: title }).should('exist')
+    })
+  })
+
   // Z_mbies
 })
