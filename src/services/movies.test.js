@@ -1,4 +1,4 @@
-import { createMovie } from './movies'
+import { createMovie, getMovie } from './movies'
 import CONFIG from '../config'
 
 beforeEach(fetch.resetMocks)
@@ -42,6 +42,32 @@ describe('movies', () => {
           expect.objectContaining({ body: '{"title":"Movie Title 2"}' }),
         )
       })
+    })
+  })
+
+  describe('getMovie', () => {
+    it('gets movies from API', async () => {
+      fetch.mockResponse('[]')
+      await getMovie()
+      expect(fetch).toHaveBeenCalledWith(CONFIG.api.endpoint + '/movies')
+    })
+
+    it('returns empty string when API returns no movies', async () => {
+      fetch.mockResponse('[]')
+      const movie = await getMovie()
+      expect(movie).toEqual('')
+    })
+
+    it('returns movie from API when API returns one movie', async () => {
+      fetch.mockResponse(JSON.stringify([ { title: 'Movie Title' } ]))
+      const movie = await getMovie()
+      expect(movie).toEqual('Movie Title')
+    })
+
+    it('returns last movie from API when API returns many movies', async () => {
+      fetch.mockResponse(JSON.stringify([ { title: 'Movie Title 1' }, { title: 'Movie Title 2' } ]))
+      const movie = await getMovie()
+      expect(movie).toEqual('Movie Title 2')
     })
   })
 })

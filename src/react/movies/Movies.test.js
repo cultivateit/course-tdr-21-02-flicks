@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event'
-import { onCreateMovie } from '../../redux/actions/movie'
+import { onCreateMovie, onInitMovie } from '../../redux/actions/movie'
 import { configureMockStore, render, screen, within, withIntl, withState, withStore } from '../../test/utils/rtl'
 import Movies from './Movies'
 
@@ -38,6 +38,27 @@ describe('Movies', () => {
     expect(store.getActions()).toContainEqual(onCreateMovie('Movie Title 1'))
     addMovie('Movie Title 2')
     expect(store.getActions()).toContainEqual(onCreateMovie('Movie Title 2'))
+  })
+
+  describe('initialize movie', () => {
+    it('signals init movie', () => {
+      const store = configureMockStore({ movie: '' })
+      render(<Movies />, withIntl(), withStore(store))
+      expect(store.getActions()).toContainEqual(onInitMovie())
+    })
+
+    it('signals init movie only once', () => {
+      const store = configureMockStore({ movie: '' })
+      const { rerender } = render(<Movies />, withIntl(), withStore(store))
+      rerender(<Movies />)
+      expect(store.getActions()).toHaveLength(1)
+    })
+
+    it('does not signal init movie when movie is already initialized', () => {
+      const store = configureMockStore({ movie: 'Movie Title' })
+      render(<Movies />, withIntl(), withStore(store))
+      expect(store.getActions()).not.toContainEqual(onInitMovie())
+    })
   })
 
   it('shows new movie form when clicking on new movie button', () => {
