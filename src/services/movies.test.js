@@ -30,10 +30,10 @@ describe('movies', () => {
       })
 
       it('using movie as body', async () => {
-        await createMovie('Movie Title')
+        await createMovie('Movie Title 1')
         expect(fetch).toHaveBeenCalledWith(
           expect.anything(),
-          expect.objectContaining({ body: '{"title":"Movie Title"}' }),
+          expect.objectContaining({ body: '{"title":"Movie Title 1"}' }),
         )
 
         await createMovie('Movie Title 2')
@@ -59,9 +59,9 @@ describe('movies', () => {
     })
 
     it('returns movie from API when API returns one movie', async () => {
-      fetch.mockResponse(JSON.stringify([ { title: 'Movie Title' } ]))
+      fetch.mockResponse(JSON.stringify([ { title: 'Movie Title 1' } ]))
       const movie = await getMovie()
-      expect(movie).toEqual('Movie Title')
+      expect(movie).toEqual('Movie Title 1')
     })
 
     it('returns last movie from API when API returns many movies', async () => {

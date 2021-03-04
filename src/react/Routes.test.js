@@ -1,4 +1,4 @@
-import { BUILD_INFO, ERROR, ROOT, WELCOME } from '../domain/routes'
+import { BUILD_INFO, ERROR, MOVIES_NEW, ROOT, WELCOME } from '../domain/routes'
 import { initialState, render, screen, withIntl, withLocation, withState } from '../test/utils/rtl'
 import Routes from './Routes'
 
@@ -22,6 +22,11 @@ describe('Routes', () => {
     it('routes to not welcome page', () => {
       render(<Routes />, withIntl(), withState(initialState), withLocation(WELCOME))
       expect(screen.getByRole('heading')).toHaveTextContent(/welcome/i)
+    })
+
+    it('routes to movies and sub pages', () => {
+      render(<Routes />, withIntl(), withState(initialState), withLocation(MOVIES_NEW))
+      expect(screen.getByRole('heading')).toHaveTextContent(/new/i)
     })
 
     it('redirects from root page to welcome page', () => {

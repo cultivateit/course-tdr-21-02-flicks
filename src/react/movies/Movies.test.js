@@ -1,6 +1,16 @@
 import userEvent from '@testing-library/user-event'
+import { MOVIES } from '../../domain/routes'
 import { onCreateMovie, onInitMovie } from '../../redux/actions/movie'
-import { configureMockStore, render, screen, within, withIntl, withState, withStore } from '../../test/utils/rtl'
+import {
+  configureMockStore,
+  render,
+  screen,
+  within,
+  withIntl,
+  withLocation,
+  withState,
+  withStore,
+} from '../../test/utils/rtl'
 import Movies from './Movies'
 
 const addMovie = movie => {
@@ -10,30 +20,34 @@ const addMovie = movie => {
   userEvent.click(within(newForm).getByRole('button', { name: /save/i }))
 }
 
-const decorators = [ withIntl(), withState({ movie: '' }) ]
+let decorators
+
+beforeEach(() => {
+  decorators = [ withIntl(), withLocation(MOVIES) ]
+})
 
 describe('Movies', () => {
   it('has no movie initially when there is no movie', () => {
-    render(<Movies />, ...decorators)
+    render(<Movies />, ...decorators, withState({ movie: '' }))
     const list = screen.getByRole('list', { name: /movies/i })
     expect(within(list).queryByRole('listitem')).not.toBeInTheDocument()
   })
 
   it('has one movie when there is one movie', () => {
-    render(<Movies />, withIntl(), withState({ movie: 'Movie Title 1' }))
+    render(<Movies />, ...decorators, withState({ movie: 'Movie Title 1' }))
     const movies = screen.getByRole('list', { name: /movies/i })
     within(movies).getByRole('listitem', { name: 'Movie Title 1' })
   })
 
   it('has different movie when there is a different movie', () => {
-    render(<Movies />, withIntl(), withState({ movie: 'Movie Title 2' }))
+    render(<Movies />, ...decorators, withState({ movie: 'Movie Title 2' }))
     const movies = screen.getByRole('list', { name: /movies/i })
     within(movies).getByRole('listitem', { name: 'Movie Title 2' })
   })
 
   it('signals new movie after adding one', () => {
     const store = configureMockStore({ movie: '' })
-    render(<Movies />, withIntl(), withStore(store))
+    render(<Movies />, ...decorators, withStore(store))
     addMovie('Movie Title 1')
     expect(store.getActions()).toContainEqual(onCreateMovie('Movie Title 1'))
     addMovie('Movie Title 2')
@@ -43,43 +57,43 @@ describe('Movies', () => {
   describe('initialize movie', () => {
     it('signals init movie', () => {
       const store = configureMockStore({ movie: '' })
-      render(<Movies />, withIntl(), withStore(store))
+      render(<Movies />, ...decorators, withStore(store))
       expect(store.getActions()).toContainEqual(onInitMovie())
     })
 
     it('signals init movie only once', () => {
       const store = configureMockStore({ movie: '' })
-      const { rerender } = render(<Movies />, withIntl(), withStore(store))
+      const { rerender } = render(<Movies />, ...decorators, withStore(store))
       rerender(<Movies />)
       expect(store.getActions()).toHaveLength(1)
     })
 
     it('does not signal init movie when movie is already initialized', () => {
       const store = configureMockStore({ movie: 'Movie Title' })
-      render(<Movies />, withIntl(), withStore(store))
+      render(<Movies />, ...decorators, withStore(store))
       expect(store.getActions()).not.toContainEqual(onInitMovie())
     })
   })
 
   it('shows new movie form when clicking on new movie button', () => {
-    render(<Movies />, ...decorators)
+    render(<Movies />, ...decorators, withState({ movie: '' }))
     userEvent.click(screen.getByRole('button', { name: /new/i }))
     screen.getByRole('form', { name: /new/i })
   })
 
   it('shows no new movie form initially', () => {
-    render(<Movies />, ...decorators)
+    render(<Movies />, ...decorators, withState({ movie: '' }))
     expect(screen.queryByRole('form', { name: /new/i })).not.toBeInTheDocument()
   })
 
   it('hides movie list when clicking on the new movie button', () => {
-    render(<Movies />, ...decorators)
+    render(<Movies />, ...decorators, withState({ movie: '' }))
     userEvent.click(screen.getByRole('button', { name: /new/i }))
     expect(screen.queryByRole('list', { name: /movies/i })).not.toBeInTheDocument()
   })
 
   it('hides new movie form after saving movie', () => {
-    render(<Movies />, ...decorators)
+    render(<Movies />, ...decorators, withState({ movie: '' }))
     addMovie('Movie Title')
     expect(screen.queryByRole('form', { name: /new/i })).not.toBeInTheDocument()
   })

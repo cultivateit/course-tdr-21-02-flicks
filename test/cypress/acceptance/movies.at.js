@@ -51,5 +51,18 @@ describe('Feature: Movies', () => {
     })
   })
 
+  it('Scenario: Linking directly into new movie form should be possible', () => {
+    cy.Given('I am on the add movie page')
+    cy.visit('/movies')
+    cy.findByRole('button', { name: /new/i }).click()
+    cy.findByRole('form', { name: /new/i }).should('exist')
+
+    cy.When('I share the URL and the URL is opened')
+    cy.reload()
+
+    cy.Then('I see the new movie form')
+    cy.findByRole('form', { name: /new/i }).should('exist')
+  })
+
   // Z_mbies
 })

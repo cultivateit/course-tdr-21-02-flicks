@@ -7,7 +7,7 @@ jest.mock('../../../services/movies')
 beforeEach(jest.resetAllMocks)
 
 describe('onCreateMovie', () => {
-  it('put movie into store', () => {
+  it('puts movie into store', () => {
     const { store } = configureStore()
 
     store.dispatch(onCreateMovie('Movie Title 1'))
@@ -21,8 +21,8 @@ describe('onCreateMovie', () => {
     const { store } = configureStore()
     createMovie.mockResolvedValue()
 
-    store.dispatch(onCreateMovie('Movie Title'))
-    expect(createMovie).toHaveBeenCalledWith('Movie Title')
+    store.dispatch(onCreateMovie('Movie Title 1'))
+    expect(createMovie).toHaveBeenCalledWith('Movie Title 1')
 
     store.dispatch(onCreateMovie('Movie Title 2'))
     expect(createMovie).toHaveBeenCalledWith('Movie Title 2')

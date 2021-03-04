@@ -13,7 +13,7 @@ const Routes = () => (
     <Route exact path={BUILD_INFO}><BuildInfo {...config.buildInfo} /></Route>
     <Route exact path={ERROR}><Error /></Route>
     <Route exact path={WELCOME}><Welcome /></Route>
-    <Route exact path={MOVIES}><Movies /></Route>
+    <Route path={MOVIES}><Movies /></Route>
     <Route path='*'><NotFound /></Route>
   </Switch>
 )

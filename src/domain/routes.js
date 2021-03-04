@@ -4,3 +4,4 @@ export const ERROR = `${ROOT}error`
 export const BUILD_INFO = `${ROOT}build-info`
 export const WELCOME = `${ROOT}welcome`
 export const MOVIES = `${ROOT}movies`
+export const MOVIES_NEW = `${MOVIES}/new`

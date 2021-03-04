@@ -7,9 +7,9 @@ describe('MovieEditor', () => {
     const onCreateMovie = jest.fn()
     render(<MovieEditor onCreateMovie={onCreateMovie} />, withIntl())
     const newForm = screen.getByRole('form', { name: /new/i })
-    userEvent.type(within(newForm).getByPlaceholderText(/title/i), 'Movie Title')
+    userEvent.type(within(newForm).getByPlaceholderText(/title/i), 'Movie Title 1')
     userEvent.click(within(newForm).getByRole('button', { name: /save/i }))
-    expect(onCreateMovie).toHaveBeenCalledWith('Movie Title')
+    expect(onCreateMovie).toHaveBeenCalledWith('Movie Title 1')
   })
 
   it('signals another movie when another title was entered and save was clicked', () => {

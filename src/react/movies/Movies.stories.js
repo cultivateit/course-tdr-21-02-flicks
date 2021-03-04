@@ -1,10 +1,11 @@
-import { initialState, withState } from '../../test/utils/storybook'
+import { MOVIES } from '../../domain/routes'
+import { initialState, withLocation, withState } from '../../test/utils/storybook'
 import Movies from './Movies'
 
 export default {
   title: 'movies/Movies',
   component: Movies,
-  decorators: [ withState(initialState) ],
+  decorators: [ withLocation(MOVIES), withState(initialState) ],
 }
 
 export const Empty = () => <Movies />

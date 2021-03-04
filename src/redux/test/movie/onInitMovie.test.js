@@ -17,9 +17,9 @@ describe('onInitMovie', () => {
   it('puts movie into store', async () => {
     const { store } = configureStore()
 
-    getMovie.mockResolvedValue('Movie Title')
+    getMovie.mockResolvedValue('Movie Title 1')
     await store.dispatch(onInitMovie())
-    expect(store.getState().movie).toBe('Movie Title')
+    expect(store.getState().movie).toBe('Movie Title 1')
 
     getMovie.mockResolvedValue('Movie Title 2')
     await store.dispatch(onInitMovie())
